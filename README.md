@@ -15,7 +15,7 @@ API I created for myself to do a quick check on my projects. Maybe will add more
 | /api/services/{service_id}/restart| POST |
 | /api/services/{service_id}/resume | POST |
 | /api/services/{service_id}/suspend| POST |
-| /api/services/list_postgres       | POST |
+| /api/services/list_postgres       | GET  |
 
 ---
 

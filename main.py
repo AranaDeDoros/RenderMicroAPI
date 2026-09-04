@@ -35,7 +35,7 @@ async def resume_service( service_id: Annotated[str, Path(title="id of service t
                         Depends(get_render_service)) ->  ServiceStateUpdate:
     return service.resume(service_id)
     
-@app.post("/api/services/list_postgres")
+@app.get("/api/services/list_postgres")
 async def list_postgres(  service: RenderServiceClient = 
                         Depends(get_render_service))  -> list[RenderPostgresResponse]:
     return service.list_postgres_instances()
