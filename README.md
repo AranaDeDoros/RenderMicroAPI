@@ -12,10 +12,10 @@ API I created for myself to do a quick check on my projects. Maybe will add more
 | url                               | Verb |
 |-----------------------------------| -----|
 | /api/services                     | GET  |
-| /api/services/{service_id}/restart| GET  |
-| /api/services/{service_id}/resume | GET  |
-| /api/services/{service_id}/suspend| GET  |
-| /api/services/list_postgres       | GET  |
+| /api/services/{service_id}/restart| POST |
+| /api/services/{service_id}/resume | POST |
+| /api/services/{service_id}/suspend| POST |
+| /api/services/list_postgres       | POST |
 
 ---
 
