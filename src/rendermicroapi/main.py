@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends, FastAPI, Path
 from fastapi.middleware.cors import CORSMiddleware
 from rendermicroapi.models.render import   RenderPostgresResponse, RenderServiceResponse, ServiceStateUpdate
 from rendermicroapi.services.RenderService import RenderServiceClient
-
+from fastapi import Query
 app = FastAPI()
 
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -16,9 +16,11 @@ def get_render_service() -> RenderServiceClient:
     return RenderServiceClient()
 
 @app.get("/api/services")
-async def services( service: RenderServiceClient =
-                Depends(get_render_service)) ->  list[RenderServiceResponse]:
-    return service.list_services()
+async def services(cursor: str = "",
+                   service: RenderServiceClient =
+                   Depends(get_render_service),
+                  ) ->  list[RenderServiceResponse]:
+    return service.list_services(cursor)
 
 @app.post("/api/services/{service_id}/suspend")
 async def suspend_service( service_id: Annotated[str, Path(title="id of service to suspend")],
@@ -39,9 +41,10 @@ async def resume_service( service_id: Annotated[str, Path(title="id of service t
     return service.resume(service_id)
 
 @app.get("/api/services/list_postgres")
-async def list_postgres(  service: RenderServiceClient =
+async def list_postgres(cursor: str = "",
+                        service: RenderServiceClient =
                         Depends(get_render_service))  -> list[RenderPostgresResponse]:
-    return service.list_postgres_instances()
+    return service.list_postgres_instances(cursor)
 
 
 

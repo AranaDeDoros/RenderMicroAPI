@@ -18,9 +18,9 @@ class RenderServiceClient:
         self._api_url: str = settings.RENDER_API_URL
 
 
-    def list_services(self) -> list[RenderServiceResponse]:
+    def list_services(self, cursor : str = "") -> list[RenderServiceResponse]:
         url: str = (
-            f"{self._api_url}services?includePreviews=true&limit={self._limit}"
+            f"{self._api_url}services?includePreviews=true&limit={self._limit}{f"&cursor={cursor}" if cursor  else ""}"
         )
 
         headers: dict[str, str] = {
@@ -89,9 +89,9 @@ class RenderServiceClient:
             status_change=ServiceStatusChange.RESTARTED,
         )
 
-    def list_postgres_instances(self)  -> list[RenderPostgresResponse]:
+    def list_postgres_instances(self, cursor : str = "")  -> list[RenderPostgresResponse]:
             url: str = (
-                f"{self._api_url}postgres"
+                f"{self._api_url}postgres{f"?cursor={cursor}" if cursor  else ""}"
             )
 
             headers: dict[str, str] = {
